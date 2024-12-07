@@ -1,34 +1,46 @@
 document.addEventListener("DOMContentLoaded", () => {
   const todoList = () => {
-    const textList = document.querySelector("#todo-list");
+    const inputList = document.querySelector("#todo-list");
     const buttonAdd = document.querySelector("#add");
-    const ItemAdd = document.querySelector(".list-item");
+    const titleItem = document.querySelector(".list-item");
 
-    const addTextList = () => {
-      const inputValue = textList.value.trim();
+    const addinput = () => {
+      const inputValue = inputList.value.trim();
       if (inputValue === "") {
-        alert("กรุณากรอกข้อความ");
+        alert("กรุณากรอกข้อมูล");
         return;
       }
+      inputList.value = "";
 
       const newList = document.createElement("li");
-      newList.textContent = inputValue;
-      textList.value = "";
+      newList.classList.add("take-item");
 
-      const iconRemove = document.createElement("i");
-      iconRemove.classList.add("fa-solid", "fa-xmark");
+      const textSpan = document.createElement("span");
+      textSpan.textContent = inputValue;
 
-      iconRemove.addEventListener("click", () => {
+      const checkMask = document.createElement("i");
+      checkMask.classList.add("fa-solid", "fa-check");
+
+      const removeIcon = document.createElement("i");
+      removeIcon.classList.add("fa-solid", "fa-xmark");
+
+      removeIcon.addEventListener("click", () => {
         newList.remove();
       });
 
-      newList.appendChild(iconRemove);
-      ItemAdd.appendChild(newList);
+      checkMask.addEventListener("click", () => {
+        textSpan.classList.toggle("completed");
+      });
+
+      newList.appendChild(checkMask);
+      checkMask.appendChild(textSpan);
+      newList.appendChild(removeIcon);
+      titleItem.appendChild(newList);
     };
 
     buttonAdd.addEventListener("click", (event) => {
       event.preventDefault();
-      addTextList();
+      addinput();
     });
   };
   todoList();
